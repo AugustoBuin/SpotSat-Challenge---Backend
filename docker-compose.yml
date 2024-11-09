@@ -3,27 +3,13 @@ services:
     image: postgis/postgis
     container_name: postgres_db
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: polygons
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: api_container
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgres://admin:admin@db:5432/polygons
-      JWT_SECRET: supersecretkey
-      NODE_ENV: development
 
 volumes:
   pgdata:

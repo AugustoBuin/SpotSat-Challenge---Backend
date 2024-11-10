@@ -2,7 +2,7 @@ import express, { Application } from 'express';
 import bcryptjs from 'bcryptjs';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import sequelize from './utils/config/config';
+import sequelize from './config/config';
 import routes from './routes';
 import userService from './services/userService'; // Serviço de usuário
 
@@ -14,10 +14,10 @@ const createApp = (): Application => {
 
     app.use(cors({
         origin: 'http://localhost:3001',
-        credentials: false, // colocar true depois (GBBC)
+        credentials: true, 
     }));
 
-    app.use(express.json()); // Parsing JSON
+    app.use(express.json()); 
     app.use('/', routes);
 
     return app;

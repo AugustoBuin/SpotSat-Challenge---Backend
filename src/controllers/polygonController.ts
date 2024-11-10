@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import polygonService from '../services/polygonService';
-import sequelize from '../config/config';
 import Polygon from '../models/Polygon';
 import { Sequelize } from 'sequelize';
 import { console } from 'inspector';

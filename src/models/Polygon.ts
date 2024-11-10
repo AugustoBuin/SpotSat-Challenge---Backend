@@ -10,13 +10,13 @@ class Polygon extends Model {
         type: DataType.STRING,
         allowNull: true,
     })
-    name!: string; // Nome do polígono, para facilitar pesquisas
+    name?: string; 
 
     @Column({
         type: DataType.JSONB, // Para armazenar propriedades adicionais como estilo
         allowNull: true,
     })
-    properties!: object;
+    properties?: object;
 
     @Column({
         type: DataType.GEOMETRY('POLYGON', 4326), // EPSG:4326 para latitude/longitude
@@ -26,7 +26,7 @@ class Polygon extends Model {
 
     @Column({
         type: DataType.GEOMETRY('POINT', 4326), // Centróide também com EPSG:4326
-        allowNull: true,
+        allowNull: false,
     })
     centroid!: object;
 
@@ -34,7 +34,7 @@ class Polygon extends Model {
         type: DataType.FLOAT, // Área em hectares
         allowNull: true,
     })
-    area!: number;
+    area?: number;
 
     // Chave estrangeira para associar o polígono ao usuário
     @ForeignKey(() => User)

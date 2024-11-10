@@ -3,7 +3,7 @@ import bcryptjs from 'bcryptjs';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import sequelize from './utils/config/config';
-// import routes from './routes'; // import das rotas 
+import routes from './routes'; 
 // import User from './controller/User'; // import do controle de usuário 
 
 dotenv.config();

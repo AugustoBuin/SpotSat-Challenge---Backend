@@ -2,9 +2,9 @@ import express, { Application } from 'express';
 import bcryptjs from 'bcryptjs';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import sequelize from './utils/config/config';
-// import routes from './routes'; // import das rotas 
-// import User from './controller/User'; // import do controle de usuário 
+import sequelize from './config/config';
+import routes from './routes';
+import userService from './services/userService'; // Serviço de usuário
 
 dotenv.config();
 
@@ -29,14 +29,13 @@ const defaultUser = async () => {
     const defaultPassword = process.env.DEFAULT_PASSWORD || 'admin';
 
     try {
-        // Busca se já existe o usuário padrão
-        const userExists = await User.findUserByName({ where: { username: defaultUser } });
+        // Verifica se o usuário padrão já existe
+        const userExists = await userService.getUserByName(defaultUser);
 
-        // Cria um usuário padrão
         if (!userExists) {
-            // Criptografa a senha antes de salvar
+            // Criptografa a senha e cria o usuário padrão
             const hashedPassword = await bcryptjs.hash(defaultPassword, 10);
-            await User.createUser({ username: defaultUser, password: hashedPassword });
+            await userService.createUser({ username: defaultUser, password: hashedPassword });
             console.log(`Usuário padrão chamado '${defaultUser}' criado com sucesso!`);
         } else {
             console.log(`Usuário padrão chamado '${defaultUser}' já existe!`);
